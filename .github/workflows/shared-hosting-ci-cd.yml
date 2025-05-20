@@ -1,0 +1,21 @@
+name: Deploy Laravel
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Deploy to Shared Hosting
+        uses: thaolaptrinh/shared-hosting-ci-cd@v1
+        with:
+          framework: laravel
+          php_version: '8.2'
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh_host: ${{ secrets.SSH_HOST }}
+          ssh_username: ${{ secrets.SSH_USERNAME }}
+          remote_path: ${{ secrets.REMOTE_PATH }}
+          app_url: ${{ secrets.APP_URL }}
